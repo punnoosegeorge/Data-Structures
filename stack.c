@@ -1,115 +1,101 @@
 #include<stdio.h>
 
-int stack[100],top=0,n;
+#include<stdlib.h>
 
-void push(void);
-void pop(void);
+struct node {
+  int data;
+  struct node * next;
+};
+struct node * head, * temp, * newnode, * prev;
+void push();
+void pop();
 void display();
-
-void main(){
-	
-	int choice;	
-
-	top=-1;
-	
-	printf("Enter the size of the stack");
-	scanf("%d",&n);
-	printf("\n Enter The Options Below :");
-	do{	
-		
-		printf("\n \t1:Push\n\t2:Pop\n\t3:Display\n\t4:Exit\n");			
-		scanf("%d",&choice);
-		switch(choice){
-	
-			case 1:
-				 push();
-				break;
-			case 2:
-				 pop();
-				break;
-			case 3:
-				 display();
-				break;	
-			case 4:
-				printf("\nExiting....................................");
-				break;	
-			default:
-				printf("\n Enter the correct options");
-			
-		}	
-		
-	}while(choice!=4);
-
-	
+void top();
+void main() {
+  int choice;
+  do {
+    printf("\n######stack operations######\n");
+    printf("\nselect an option\n");
+    printf("\n1.push\n2.pop\n3.display\n4.top\n5.exit\n");
+    scanf("%d", & choice);
+    switch (choice) {
+    case 1:
+      push();
+      break;
+    case 2:
+      pop();
+      break;
+    case 3:
+      display();
+      break;
+    case 4:
+      top();
+      break;
+    case 5:
+      printf("\nexit\n");
+      break;
+    default:
+      printf("\nenter a valid option\n");
+    }
+  }
+  while (choice != 5);
 }
+void push() {
+  newnode = (struct node * ) malloc(sizeof(struct node));
+  if (newnode == 0) {
+    printf("\noverflow\n");
+  } else {
+    printf("\nenter data\n");
+    scanf("%d", & newnode -> data);
+    newnode -> next = 0;
+    if (head == 0) {
+      head = temp = newnode;
+    } else {
+      newnode -> next = head;
+      head = newnode;
+    }
+  }
+  printf("\npushed %d\n", newnode -> data);
 
-void push(){
-
-	int a;	
-	if(top==n-1)
-		printf("\n Stack Overflow");
-	else{
-		
-		printf("\n Enter the number To Push :");
-		scanf("%d",&a);	
-		top++;
-		stack[top]=a;
-		
-	}
-}
-
-void pop(){
-
-		
-	if(top==-1)
-		printf("\n Stack Unerflow");
-	else{
-		
-		printf("\n The poped Element : %d",stack[top]);
-		top--;
-	}
-}
-
-void display(){
-
-	int i;
-	for(i=top;i>=0;i--){
-		printf("current stack=\n%d",stack[i]);	
-	}
 }
 
 
+void pop() {
+  if (head == 0) {
+    printf("\n list is empty\n");
+  } else {
+     temp = head;
+    head = temp -> next;
+    printf("\npopped %d\n", temp -> data);
+    free(temp);
+    
+
+
+  }
+}
+
+void top(){
+  if (head == 0) {
+    printf("\nempty\n");
+  }else{
+   printf("\n top=%d",head -> data);
+   }
+  
+
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void display() {
+  if (head == 0) {
+    printf("\nempty\n");
+  } else {
+    temp = head;
+    while (temp != 0) {
+      printf("%d\t", temp -> data);
+      temp = temp -> next;
+    }
+  }
+}
 
